@@ -1,4 +1,4 @@
-(function (window, undefined) {
+var FoamyTurtle = (function (window, undefined) {
     'use strict';
     
     return {
@@ -8,30 +8,21 @@
          * @param {Array} definitions An array of objects with keys name and descriptor
          * @return {Class}
          */
-        Class: function (scope, definitions) {
-            
-            var name,
+        Class: function (definition, initialScope) {
+            var scope = initialScope || {},
                 descriptor,
-                key, i, l;
-            
-            for (i = 0, l = definitions.length; i < l; ++i) {
-                
-                name       = definitions[i].name;
-                descriptor = definitions[i].descriptor;
-                
-                // loop through descriptor
-                for (key in descriptor) {
-                    
-                    if (!descriptor.hasOwnProperty(key)
-                        && typeof descriptor[key] === 'function') {
-                        
+                prop,
+                method;
+            for (prop in definition) {
+                descriptor = definition[prop];
+                for (method in descriptor) {
+                    if (typeof descriptor[method] === 'function') {
                         // bind scope
-                        descriptor[key] = descriptor[key].bind(scope);
+                        descriptor[method] = descriptor[method].bind(scope);
                     }
                 }
-                
                 // define property for this
-                Object.defineProperty(this, name, descriptor);
+                Object.defineProperty(this, prop, definition[prop]);
             }
         }
     };
