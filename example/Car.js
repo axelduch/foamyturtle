@@ -1,4 +1,9 @@
-var Car = new FoamyTurtle.Class({
+var scope = {
+        color: 'blue',
+        dirty: true,
+        chewy: +9000
+    },
+    Car = new FoamyTurtle.Class({
     color: {
         get: function () {
             return this.color;
@@ -6,11 +11,18 @@ var Car = new FoamyTurtle.Class({
         set: function (value) {
             this.color = value;
         }
+    },
+    isAwesome: {
+        get: function () {
+            return this.dirty + this.chewy > 9000;
+        }
+    },
+    chewy: {
+        get: function () {
+            return;
+        }
     }
-}, {
-    color: 'haha'
-});
+}, scope);
 
-
-Car.color = null;
-Car.color;
+console.log(Car.color);
+console.log(Car.isAwesome);
