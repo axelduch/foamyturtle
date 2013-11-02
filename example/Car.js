@@ -4,6 +4,7 @@ var scope = {
         chewy: +9000
     },
     Car = new FoamyTurtle.Class({
+    // Color descriptor
     color: {
         get: function () {
             return this.color;
@@ -12,11 +13,13 @@ var scope = {
             this.color = value;
         }
     },
+    // isAwesome descriptor
     isAwesome: {
         get: function () {
             return this.dirty + this.chewy > 9000;
         }
     },
+    // chewy descriptor
     chewy: {
         get: function () {
             return;
@@ -24,5 +27,5 @@ var scope = {
     }
 }, scope);
 
-console.log(Car.color);
-console.log(Car.isAwesome);
+
+console.log((new Car()).color);

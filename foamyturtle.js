@@ -10,9 +10,11 @@ var FoamyTurtle = (function (window, undefined) {
          */
         Class: function (definition, initialScope) {
             var scope = initialScope || {},
+                templateClass = {},
                 descriptor,
                 prop,
                 method;
+                
             for (prop in definition) {
                 descriptor = definition[prop];
                 for (method in descriptor) {
@@ -22,8 +24,13 @@ var FoamyTurtle = (function (window, undefined) {
                     }
                 }
                 // define property for this
-                Object.defineProperty(this, prop, definition[prop]);
+                Object.defineProperty(templateClass, prop, definition[prop]);
             }
+            
+            // return the Class
+            return function () {
+                return templateClass;
+            };
         }
     };
     
