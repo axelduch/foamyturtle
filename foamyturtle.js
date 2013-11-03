@@ -16,6 +16,11 @@ var FoamyTurtle = (function (window, undefined) {
                 method;
                 
             for (prop in definition) {
+                // it's an actual method, we can bind scope to it to
+                if (typeof definition[prop] === 'function') {
+                    templateClass[prop] = definition[prop].bind(scope);
+                    continue;
+                }
                 descriptor = definition[prop];
                 for (method in descriptor) {
                     if (typeof descriptor[method] === 'function') {

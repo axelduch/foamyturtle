@@ -1,3 +1,4 @@
+// assume scope to be "this" in Car class
 var scope = {
         color: 'blue',
         dirty: true,
@@ -13,6 +14,11 @@ var scope = {
             this.color = value;
         }
     },
+    dirty: {
+        set: function (value) {
+            this.dirty = !!value;
+        }
+    },
     // isAwesome descriptor
     isAwesome: {
         get: function () {
@@ -25,7 +31,14 @@ var scope = {
             return;
         }
     }
-}, scope);
+}, scope),
+    car = new Car();
 
+console.log(car.color);
+console.log(car.isAwesome);
 
-console.log((new Car()).color);
+car.color = 'red';
+car.dirty = 0;
+
+console.log(car.color);
+console.log(car.isAwesome);
